@@ -15,7 +15,7 @@ type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.container}> 
         <Header></Header>
         <Menu ></Menu>
         <PostViewer></PostViewer>

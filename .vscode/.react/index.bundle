@@ -61610,8 +61610,6 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
     var _Post = _require(_dependencyMap[3], "./Post");
 
-    var _ansiColors = _require(_dependencyMap[4], "ansi-colors");
-
     function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
     function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -61653,20 +61651,16 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     var PostViewer = exports.PostViewer = _wrapComponent("PostViewer")(function (_Component) {
         _inherits(PostViewer, _Component);
 
-        function PostViewer() {
-            var _ref;
-
-            var _temp, _this, _ret;
-
+        function PostViewer(props) {
             _classCallCheck(this, PostViewer);
 
-            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-                args[_key] = arguments[_key];
-            }
+            var _this = _possibleConstructorReturn(this, (PostViewer.__proto__ || Object.getPrototypeOf(PostViewer)).call(this, props));
 
-            return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = PostViewer.__proto__ || Object.getPrototypeOf(PostViewer)).call.apply(_ref, [this].concat(args))), _this), _this.text = "", _this.componentDidMount = function () {
-                _this.getDOOMFeed();
-            }, _this.getDOOMFeed = function () {
+            _this.componentDidMount = function () {
+                _this._getDOMFeed();
+            };
+
+            _this._getDOMFeed = function () {
                 var request = new XMLHttpRequest();
                 request.open("GET", "https://seuserhumano.wordpress.com/feed/", true);
                 var response = "";
@@ -61674,29 +61668,52 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 request.onreadystatechange = function () {
                     if (request.readyState == 4 && request.status == 200) {
                         response = request.responseText.replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", '');
-                        window.DOMParser = _require(_dependencyMap[5], 'xmldom').DOMParser;
+                        window.DOMParser = _require(_dependencyMap[4], 'xmldom').DOMParser;
 
-                        _this.extractPostRSS(new DOMParser().parseFromString(response, "text/xml"));
+                        _this._extractPostRSS(new DOMParser().parseFromString(response, "text/xml"));
                     }
                 };
 
                 request.send(null);
-            }, _this.extractPostRSS = function (xmlDoc) {
-                var desc = xmlDoc.getElementsByTagName("item")[0].getElementsByTagName("title")[0].textContent;
-            }, _this.getDataList = function () {
+            };
+
+            _this._extractPostRSS = function (xmlDoc) {
+                var items = [];
+                var list = xmlDoc.getElementsByTagName("item");
+
+                for (var index = 0; index < list.length; index++) {
+                    var title = list[index].getElementsByTagName("title")[0].textContent;
+                    var description = "<html>" + list[index].getElementsByTagName("content:encoded")[0].textContent + "</html>";
+                    items.push(new PostItem(index.toString(), title, description));
+                }
+
+                _this.setState({
+                    posts: items
+                });
+            };
+
+            _this.getDataList = function () {
                 var items = [new PostItem("0", "Titulo 1", "Conteudo Conteudo Conteudo Conteudo Conteudo Conteudo"), new PostItem("1", "Título 2", "Conteudo"), new PostItem("2", "Título 3", "Conteudo")];
                 return items;
-            }, _this._renderItem = function (_ref2) {
-                var item = _ref2.item;
+            };
+
+            _this._renderItem = function (_ref) {
+                var item = _ref.item;
                 return _react3.default.createElement(_Post.Post, {
                     title: item.title,
                     content: item.content,
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 61
+                        lineNumber: 74
                     }
                 });
-            }, _temp), _possibleConstructorReturn(_this, _ret);
+            };
+
+            _this.state = {
+                category: "poesias",
+                posts: [new PostItem("0", "oi", "ola")]
+            };
+            return _this;
         }
 
         _createClass(PostViewer, [{
@@ -61708,18 +61725,18 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                         style: styles.container,
                         __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 65
+                            lineNumber: 78
                         }
                     },
                     _react3.default.createElement(_reactNative.FlatList, {
                         keyExtractor: function keyExtractor(data) {
                             return data.id;
                         },
-                        data: this.getDataList(),
+                        data: this.state.posts,
                         renderItem: this._renderItem,
                         __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 66
+                            lineNumber: 79
                         }
                     })
                 );
@@ -61735,7 +61752,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             flex: 1
         }
     });
-},494,[118,179,12,495,496,499],"components\\PostViewer.js");
+},494,[118,179,12,495,496],"components\\PostViewer.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -61795,39 +61812,21 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         _createClass(Post, [{
             key: "render",
             value: function render() {
+                var html = this.props.content;
+                console.log(html);
                 return _react3.default.createElement(
                     _reactNative.View,
                     {
                         style: styles.container,
                         __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 10
+                            lineNumber: 13
                         }
                     },
                     _react3.default.createElement(
                         _reactNative.View,
                         {
                             style: styles.titleContainer,
-                            __source: {
-                                fileName: _jsxFileName,
-                                lineNumber: 11
-                            }
-                        },
-                        _react3.default.createElement(
-                            _reactNative.Text,
-                            {
-                                __source: {
-                                    fileName: _jsxFileName,
-                                    lineNumber: 12
-                                }
-                            },
-                            this.props.title
-                        )
-                    ),
-                    _react3.default.createElement(
-                        _reactNative.View,
-                        {
-                            style: styles.postContainer,
                             __source: {
                                 fileName: _jsxFileName,
                                 lineNumber: 14
@@ -61841,8 +61840,29 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                                     lineNumber: 15
                                 }
                             },
-                            this.props.content
+                            this.props.title
                         )
+                    ),
+                    _react3.default.createElement(
+                        _reactNative.View,
+                        {
+                            style: styles.postContainer,
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 17
+                            }
+                        },
+                        _react3.default.createElement(_reactNative.WebView, {
+                            style: styles.webview,
+                            source: {
+                                html: html,
+                                baseUrl: 'web/'
+                            },
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 18
+                            }
+                        })
                     )
                 );
             }
@@ -61853,10 +61873,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
     var styles = _reactNative.StyleSheet.create({
         container: {
-            maxHeight: 150,
             padding: 5,
             marginHorizontal: 15,
-            marginVertical: 5
+            marginVertical: 5,
+            flex: 1
         },
         titleContainer: {
             justifyContent: 'center',
@@ -61868,9 +61888,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         },
         postContainer: {
             backgroundColor: '#3232',
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: 15
+            padding: 15,
+            flex: 1
+        },
+        webview: {
+            backgroundColor: 'red',
+            flex: 1,
+            minHeight: 150
         }
     });
 },495,[118,179,12],"components\\Post.js");
@@ -62100,7 +62124,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
 	exports.XMLSerializer = _require(_dependencyMap[1], './dom').XMLSerializer;
 	exports.DOMParser = DOMParser;
-},499,[500,501],"node_modules\\xmldom\\dom-parser.js");
+},496,[497,498],"node_modules\\xmldom\\dom-parser.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	var nameStartChar = /[A-Z_a-z\xC0-\xD6\xD8-\xF6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]/;
 	var nameChar = new RegExp("[\\-\\.0-9" + nameStartChar.source.slice(1, -1) + "\\u00B7\\u0300-\\u036F\\u203F-\\u2040]");
@@ -62764,7 +62788,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 	}
 
 	exports.XMLReader = XMLReader;
-},500,[],"node_modules\\xmldom\\sax.js");
+},497,[],"node_modules\\xmldom\\sax.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	function copy(src, dest) {
 		for (var p in src) {
@@ -64061,123 +64085,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
 	exports.DOMImplementation = DOMImplementation;
 	exports.XMLSerializer = XMLSerializer;
-},501,[],"node_modules\\xmldom\\dom.js");
-__d(function (global, _require, module, exports, _dependencyMap) {
-  'use strict';
-
-  var wrap = _require(_dependencyMap[0], 'ansi-wrap');
-
-  exports.bgblack = function bgblack(message) {
-    return wrap(40, 49, message);
-  };
-
-  exports.bgblue = function bgblue(message) {
-    return wrap(44, 49, message);
-  };
-
-  exports.bgcyan = function bgcyan(message) {
-    return wrap(46, 49, message);
-  };
-
-  exports.bggreen = function bggreen(message) {
-    return wrap(42, 49, message);
-  };
-
-  exports.bgmagenta = function bgmagenta(message) {
-    return wrap(45, 49, message);
-  };
-
-  exports.bgred = function bgred(message) {
-    return wrap(41, 49, message);
-  };
-
-  exports.bgwhite = function bgwhite(message) {
-    return wrap(47, 49, message);
-  };
-
-  exports.bgyellow = function bgyellow(message) {
-    return wrap(43, 49, message);
-  };
-
-  exports.black = function black(message) {
-    return wrap(30, 39, message);
-  };
-
-  exports.blue = function blue(message) {
-    return wrap(34, 39, message);
-  };
-
-  exports.bold = function bold(message) {
-    return wrap(1, 22, message);
-  };
-
-  exports.cyan = function cyan(message) {
-    return wrap(36, 39, message);
-  };
-
-  exports.dim = function dim(message) {
-    return wrap(2, 22, message);
-  };
-
-  exports.gray = function gray(message) {
-    return wrap(90, 39, message);
-  };
-
-  exports.green = function green(message) {
-    return wrap(32, 39, message);
-  };
-
-  exports.grey = function grey(message) {
-    return wrap(90, 39, message);
-  };
-
-  exports.hidden = function hidden(message) {
-    return wrap(8, 28, message);
-  };
-
-  exports.inverse = function inverse(message) {
-    return wrap(7, 27, message);
-  };
-
-  exports.italic = function italic(message) {
-    return wrap(3, 23, message);
-  };
-
-  exports.magenta = function magenta(message) {
-    return wrap(35, 39, message);
-  };
-
-  exports.red = function red(message) {
-    return wrap(31, 39, message);
-  };
-
-  exports.reset = function reset(message) {
-    return wrap(0, 0, message);
-  };
-
-  exports.strikethrough = function strikethrough(message) {
-    return wrap(9, 29, message);
-  };
-
-  exports.underline = function underline(message) {
-    return wrap(4, 24, message);
-  };
-
-  exports.white = function white(message) {
-    return wrap(37, 39, message);
-  };
-
-  exports.yellow = function yellow(message) {
-    return wrap(33, 39, message);
-  };
-},496,[497],"node_modules\\ansi-colors\\index.js");
-__d(function (global, _require, module, exports, _dependencyMap) {
-  'use strict';
-
-  module.exports = function (a, b, msg) {
-    return "\x1B[" + a + 'm' + msg + "\x1B[" + b + 'm';
-  };
-},497,[],"node_modules\\ansi-wrap\\index.js");
+},498,[],"node_modules\\xmldom\\dom.js");
 require(44);
 require(11);
 //# sourceMappingURL=index.map
