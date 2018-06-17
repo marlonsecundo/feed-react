@@ -8,14 +8,15 @@ export class Post extends Component {
         return (
 
             <View style={styles.container}>
-                <View style={styles.postContainer}>
+                <View style={styles.titleContainer}>
                     <Text>{this.props.title}</Text>
-                </View> 
-                <View style={styles.postContainer}>
-                    <Text>{this.props.content}</Text>
-                </View> 
+                </View>  
+                <View style={styles.postContainer}> 
+                    <Text>{this.props.content}</Text> 
 
-            </View>
+                </View>   
+ 
+            </View> 
 
         );
     };
@@ -24,12 +25,26 @@ export class Post extends Component {
 const styles = StyleSheet.create({
     container:
     {
-        margin: 10,
+        maxHeight: 150,
+        padding: 5,
+        marginHorizontal: 15,
+        marginVertical: 5,
     },
-    postContainer:
+    titleContainer:
     {
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 5,
-    }
+        backgroundColor: '#4545',
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        padding : 5
+    },
+    postContainer:
+    {
+        backgroundColor: '#3232',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding : 15
+    },
+
 });
