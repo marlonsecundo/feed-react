@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
-import { black } from 'ansi-colors';
 
 export class Menu extends Component {
 
@@ -25,16 +24,19 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 15,
-        borderBottomWidth: 1,
+        padding: 10,
+        borderBottomWidth: 0.5,
+        marginTop : 5,
+        marginBottom: 15,
+        marginHorizontal: 10,
     },
     textContainer:
-        {
-            borderBottomWidth: 0,
-        },
+    {
+        borderBottomWidth: 0,
+    },
     text:
-        {
-            fontSize: 20,
-        }
+    {
+        fontSize: 20,
+    }
 
 });
