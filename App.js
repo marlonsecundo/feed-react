@@ -8,26 +8,32 @@ import {
   View
 } from 'react-native';
 
-import { Header } from './components/Header';
+import  Header  from './components/Header';
 import { Menu } from './components/Menu';
 import { PostViewer } from './components/PostViewer';
+
+import { general } from './styles';
+
 type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}> 
-        <Header></Header>
-        <Menu ></Menu>
-        <PostViewer></PostViewer>
-    
+        <View>
+          <Header></Header> 
+          <Menu></Menu> 
+        </View>
+        <View style={styles.container}>
+          <PostViewer></PostViewer>
+        </View>
+        
       </View> 
     );
   }
 }
 
+
 const styles = StyleSheet.create({
-  container :
-  {
-    flex: 1
-  }
+  ...general,
+
 });

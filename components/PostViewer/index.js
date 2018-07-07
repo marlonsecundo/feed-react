@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import { StyleSheet, View, Text, ScrollView, FlatList } from 'react-native';
 
-import { Post } from './Post';
+import Post  from '../Post';
+import styles from './styles'
 
 class PostItem {
     id = "";
@@ -30,7 +31,8 @@ export class PostViewer extends Component {
     }
 
     componentDidMount = () => {
-        this._getDOMFeed();
+        // this._getDOMFeed();
+        this.getDataList();
     }
 
     _getDOMFeed = () => {
@@ -56,7 +58,7 @@ export class PostViewer extends Component {
 
         for (let index = 0; index < list.length; index++) {
             let title = list[index].getElementsByTagName("title")[0].textContent;
-            let description = "<html>" + list[index].getElementsByTagName("content:encoded")[0].textContent + "</html>";
+            let description = "<html><body " + list[index].getElementsByTagName("content:encoded")[0].textContent + "</body></html>";
             items.push(new PostItem(index.toString(), title, description));
         }
 
@@ -66,9 +68,7 @@ export class PostViewer extends Component {
 
     getDataList = () => {
 
-        let items = [new PostItem("0", "Titulo 1", "Conteudo Conteudo Conteudo Conteudo Conteudo Conteudo"), new PostItem("1", "Título 2", "Conteudo"), new PostItem("2", "Título 3", "Conteudo")];
-
-        return items;  
+        this.setState({ posts: [new PostItem("0", "ANTEMANHÃ", "<html><p>O monstrengo que está no fim do mar</p><p>Veio das trevas a procurar</p><p>A madrugada do novo dia,</p><p>Do novo dia sem acabar;</p></html>"), new PostItem("1", "Título 2", "Conteudo")] });  
     }
 
     _renderItem = ({ item }) => (<Post title={item.title} content={item.content}></Post>);
@@ -76,19 +76,10 @@ export class PostViewer extends Component {
     render() {
         return (
             <View style={styles.container}> 
-                <FlatList keyExtractor={data => data.id} data={this.state.posts} renderItem={this._renderItem} />
+                <FlatList /*contentContainerStyle={}*/ keyExtractor={data => data.id} data={this.state.posts} renderItem={this._renderItem} />
             </View>
-        );
+        ); 
     }
 }
 
-
-const styles = StyleSheet.create({
-
-    container:
-    {
-        justifyContent: 'center',
-        flex: 1,
-    },
-});
 
