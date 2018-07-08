@@ -17,7 +17,7 @@ const styles = {
         maxHeight: 250,
         backgroundColor: colors.secondary,
         borderWidth: 1,
-        borderColor: 'rgba(216, 49, 91, 0.1)',
+        borderColor: 'rgba(23, 80, 104, 0.2)',
     },
     postContainer:
     {

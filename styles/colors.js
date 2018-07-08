@@ -1,8 +1,8 @@
 export default {
-    primary: '#D8315B',
+    primary: '#247BA0',
     secondary: 'white',
-    third: '#E26987',
-    back: '#F9F7F8',
+    third: '#2B98C6',
+    back: '#D7E7ED',
     high: '#9E291C',
     
 }

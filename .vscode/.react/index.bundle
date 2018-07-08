@@ -61640,10 +61640,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         value: true
     });
     exports.default = {
-        primary: '#D8315B',
+        primary: '#247BA0',
         secondary: 'white',
-        third: '#E26987',
-        back: '#F9F7F8',
+        third: '#2B98C6',
+        back: '#D7E7ED',
         high: '#9E291C'
     };
 },497,[],"styles\\colors.js");
@@ -61703,7 +61703,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             maxHeight: 250,
             backgroundColor: _colors2.default.secondary,
             borderWidth: 1,
-            borderColor: 'rgba(216, 49, 91, 0.1)'
+            borderColor: 'rgba(23, 80, 104, 0.2)'
         },
         postContainer: {
             margin: _metrics2.default.padding,
