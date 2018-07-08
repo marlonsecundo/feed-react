@@ -1,34 +1,36 @@
 import { StyleSheet } from 'react-native';
-import { metrics, colors, fonts,general } from '../../styles';
+import { fonts, colors, metrics, general } from '../../styles';
+
 const styles = StyleSheet.create({
     ...general,
     titleContainer:
     {
-        flexDirection: 'row',
-        justifyContent: 'center',
         padding: 10,
         alignItems: 'center',
     },
     title:
     {
+        textAlign: 'left',
         fontFamily: fonts.family,
         fontSize: fonts.regular,
         color: colors.third,
         fontWeight: 'bold'
     },
-    postText:
+    frase:
     {
-        textAlign: 'center',
+        textAlign: 'justify',
         fontFamily: fonts.family,
+        fontSize: fonts.title,
     },
-    separador:
+    autor:
     {
-        height: 2,
-        backgroundColor: colors.back,
+        textAlign: 'right',
+        fontFamily: fonts.family,
+        fontSize: fonts.regular,
+        fontStyle: 'italic',
+        marginTop: 10,
+        marginBottom: 0,
     },
-
-
-
 });
 
 export default styles;

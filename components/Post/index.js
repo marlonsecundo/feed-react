@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
-
+import React  from 'react';
 import { StyleSheet, View, Text, WebView } from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
-
-const Post = ({ title, content, category }) => (
+const Post = ({ title, content, tag }) => (
     <View style={styles.cardContainer}>
         <View style={styles.titleContainer}>
             <Text style={styles.title}>
@@ -19,7 +17,7 @@ const Post = ({ title, content, category }) => (
         </View>
         <View style={styles.postContainer}>
             {
-                getJSXFromPoesias(content).map((item, index) => {
+                getPoesias(content).map((item, index) => {
                     if (index < 5)
                         return (<Text style={styles.postText} key={index}>{item}</Text>)
                 })
@@ -27,13 +25,12 @@ const Post = ({ title, content, category }) => (
         </View>
         <View style={styles.tagsContainer}>
             <Icon name="ios-pricetag" style={styles.icon}></Icon>
-            <Text style={styles.tagText}>{category}</Text>
+            <Text style={styles.tagText}>{tag}</Text>
         </View>
     </View>
 );
 
-getJSXFromPoesias = (content) => {
-
+getPoesias = (content) => {
     let versos = content.split("<p>");
 
     versos = versos.join("$");
@@ -54,7 +51,9 @@ getJSXFromPoesias = (content) => {
         return index !== 0;
     });
 
-    return (versos);
+    return versos;
 }
+
+
 
 export default Post;

@@ -9,7 +9,7 @@ import styles from './styles';
 const Header = () => (
     <View style={styles.container}>
         <View style={styles.contTitle}>        
-            <Text style={styles.title}>Ser Humano</Text>
+            <Text style={styles.title}>Seu Ser Humano</Text>
         </View>
 
         <View>

@@ -61284,6 +61284,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
   var _styles = _require(_dependencyMap[6], "./styles");
 
+  var _AppConsts = _require(_dependencyMap[7], "./components/AppConsts");
+
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61314,15 +61316,22 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   var App = _wrapComponent("App")(function (_Component) {
     _inherits(App, _Component);
 
-    function App() {
+    function App(props) {
       _classCallCheck(this, App);
 
-      return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+      var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+      _this.state = {
+        menuAction: null
+      };
+      return _this;
     }
 
     _createClass(App, [{
       key: "render",
       value: function render() {
+        var _this2 = this;
+
         return _react3.default.createElement(
           _reactNative.View,
           {
@@ -61331,7 +61340,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 17
+              lineNumber: 28
             }
           },
           _react3.default.createElement(
@@ -61339,19 +61348,20 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 18
+                lineNumber: 29
               }
             },
             _react3.default.createElement(_Header2.default, {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 19
+                lineNumber: 30
               }
             }),
             _react3.default.createElement(_Menu.Menu, {
+              getFeed: this.state.menuAction,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 20
+                lineNumber: 31
               }
             })
           ),
@@ -61361,13 +61371,19 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: [styles.rootContainer, styles.content],
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 22
+                lineNumber: 33
               }
             },
             _react3.default.createElement(_PostViewer.PostViewer, {
+              onMount: function onMount(menuAction) {
+                _this2.setState({
+                  menuAction: menuAction
+                });
+              },
+              category: _AppConsts.category.poesias,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 23
+                lineNumber: 34
               }
             })
           )
@@ -61386,7 +61402,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       flex: 1
     }
   }));
-},491,[118,179,12,492,502,504,496],"App.js");
+},491,[118,179,12,492,502,504,496,566],"App.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -61435,7 +61451,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                             lineNumber: 12
                         }
                     },
-                    "Ser Humano"
+                    "Seu Ser Humano"
                 )
             ),
             _react2.default.createElement(
@@ -61546,16 +61562,23 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
     var _styles = _require(_dependencyMap[2], "../../styles");
 
+    var _AppConsts = _require(_dependencyMap[3], "../AppConsts");
+
     function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
     var ButtonMenu = function ButtonMenu(_ref) {
-        var title = _ref.title;
+        var title = _ref.title,
+            action = _ref.action,
+            cat = _ref.cat;
         return _react2.default.createElement(
             _reactNative.TouchableOpacity,
             {
+                onPress: function onPress() {
+                    action(cat);
+                },
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 6
+                    lineNumber: 9
                 }
             },
             _react2.default.createElement(
@@ -61564,7 +61587,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: styles.text,
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 7
+                        lineNumber: 11
                     }
                 },
                 title
@@ -61582,7 +61605,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     });
 
     exports.default = ButtonMenu;
-},495,[118,12,496],"components\\UiComps\\ButtonMenu.js");
+},495,[118,12,496,566],"components\\UiComps\\ButtonMenu.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -61668,6 +61691,39 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     var styles = {
         rootContainer: {
             padding: _metrics2.default.padding
+        },
+        cardContainer: {
+            shadowOffset: {
+                width: 1,
+                height: 1
+            },
+            shadowColor: _colors2.default.primary,
+            marginVertical: 5,
+            marginHorizontal: 5,
+            maxHeight: 250,
+            backgroundColor: _colors2.default.secondary,
+            borderWidth: 1,
+            borderColor: 'rgba(216, 49, 91, 0.1)'
+        },
+        postContainer: {
+            margin: _metrics2.default.padding,
+            marginBottom: 0
+        },
+        tagsContainer: {
+            flexDirection: 'row',
+            padding: _metrics2.default.padding,
+            paddingBottom: 10,
+            marginTop: 5,
+            alignItems: 'center'
+        },
+        icon: {
+            fontSize: 15,
+            color: _colors2.default.third
+        },
+        tagText: {
+            color: _colors2.default.third,
+            fontFamily: _fonts2.default.family,
+            marginHorizontal: 5
         }
     };
     exports.default = styles;
@@ -61735,6 +61791,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
     var _styles2 = _interopRequireDefault(_styles);
 
+    var _AppConsts = _require(_dependencyMap[5], "../AppConsts");
+
     function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
     function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61765,10 +61823,16 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     var Menu = exports.Menu = _wrapComponent("Menu")(function (_Component) {
         _inherits(Menu, _Component);
 
-        function Menu() {
+        function Menu(props) {
             _classCallCheck(this, Menu);
 
-            return _possibleConstructorReturn(this, (Menu.__proto__ || Object.getPrototypeOf(Menu)).apply(this, arguments));
+            var _this = _possibleConstructorReturn(this, (Menu.__proto__ || Object.getPrototypeOf(Menu)).call(this, props));
+
+            _this._onPressBtMenu = function (category) {
+                if (_this.props.getFeed !== null) _this.props.getFeed(category);
+            };
+
+            return _this;
         }
 
         _createClass(Menu, [{
@@ -61780,7 +61844,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                         style: [_styles2.default.rootContainer],
                         __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 9
+                            lineNumber: 22
                         }
                     },
                     _react3.default.createElement(
@@ -61789,28 +61853,33 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                             style: [_styles2.default.container],
                             __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 10
+                                lineNumber: 23
                             }
                         },
                         _react3.default.createElement(_ButtonMenu2.default, {
+                            action: this._onPressBtMenu,
                             title: "Poesias",
+                            cat: _AppConsts.category.poesias,
                             __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 11
+                                lineNumber: 24
                             }
                         }),
                         _react3.default.createElement(_ButtonMenu2.default, {
+                            action: this._onPressBtMenu,
                             title: "Reflex\xF5es",
                             __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 12
+                                lineNumber: 25
                             }
                         }),
                         _react3.default.createElement(_ButtonMenu2.default, {
+                            action: this._onPressBtMenu,
                             title: "Frases",
+                            cat: _AppConsts.category.frases,
                             __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 13
+                                lineNumber: 26
                             }
                         })
                     )
@@ -61820,7 +61889,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
         return Menu;
     }(_react2.Component));
-},502,[118,179,12,495,503],"components\\Menu\\index.js");
+},502,[118,179,12,495,503,566],"components\\Menu\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -61870,9 +61939,15 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
     var _Post2 = _interopRequireDefault(_Post);
 
-    var _styles = _require(_dependencyMap[4], "./styles");
+    var _PostFrase = _require(_dependencyMap[4], "../PostFrase");
+
+    var _PostFrase2 = _interopRequireDefault(_PostFrase);
+
+    var _styles = _require(_dependencyMap[5], "./styles");
 
     var _styles2 = _interopRequireDefault(_styles);
+
+    var _AppConsts = _require(_dependencyMap[6], "../AppConsts");
 
     function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -61901,16 +61976,18 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         };
     }
 
-    var PostItem = function PostItem(id, title, content, category) {
+    var PostItem = function PostItem(id, title, content, category, tag) {
         _classCallCheck(this, PostItem);
 
         this.id = "";
         this.title = "";
         this.content = "";
+        this.tag = "";
         this.id = id;
         this.title = title;
         this.content = content;
         this.category = category;
+        this.tag = tag;
     };
 
     var PostViewer = exports.PostViewer = _wrapComponent("PostViewer")(function (_Component) {
@@ -61922,10 +61999,18 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             var _this = _possibleConstructorReturn(this, (PostViewer.__proto__ || Object.getPrototypeOf(PostViewer)).call(this, props));
 
             _this.componentDidMount = function () {
-                _this._getDOMFeed();
+                _this.getDOMFeed(_this.props.category);
+
+                _this.props.onMount(_this.getDOMFeed);
             };
 
-            _this._getDOMFeed = function () {
+            _this.getDOMFeed = function (category) {
+                _this.setState({
+                    loaded: false,
+                    posts: [],
+                    category: category
+                });
+
                 var request = new XMLHttpRequest();
                 request.open("GET", "https://seuserhumano.wordpress.com/feed/", true);
                 var response = "";
@@ -61933,7 +62018,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 request.onreadystatechange = function () {
                     if (request.readyState == 4 && request.status == 200) {
                         response = request.responseText.replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", '');
-                        window.DOMParser = _require(_dependencyMap[5], 'xmldom').DOMParser;
+                        window.DOMParser = _require(_dependencyMap[7], 'xmldom').DOMParser;
 
                         _this._extractPostRSS(new DOMParser().parseFromString(response, "text/xml"));
                     }
@@ -61949,41 +62034,56 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 for (var index = 0; index < list.length; index++) {
                     var title = list[index].getElementsByTagName("title")[0].textContent.toUpperCase();
                     var description = list[index].getElementsByTagName("content:encoded")[0].textContent;
-                    var category = list[index].getElementsByTagName("category");
 
-                    for (var i = 0; i < category.length; i++) {
-                        cat = category[i].textContent;
-                        if (cat.toUpperCase() == _this.state.category) items.push(new PostItem(index.toString(), title, description, cat));
+                    var _category = list[index].getElementsByTagName("category");
+
+                    var tag = _category[_category.length - 1].textContent;
+
+                    for (var i = 0; i < _category.length; i++) {
+                        cat = _category[i].textContent;
+
+                        if (cat.toUpperCase() == _this.state.category) {
+                            tag = _category.length == 2 && i == 0 ? _category[1].textContent : tag;
+                            items.push(new PostItem(index.toString(), title, description, _this.state.category, tag));
+                        }
                     }
                 }
 
                 _this.setState({
-                    posts: items
-                });
-            };
-
-            _this.getDataList = function () {
-                _this.setState({
-                    posts: [new PostItem("0", "ANTEMANHÃ", "<html><p>O monstrengo que está no fim do mar</p><p>Veio das trevas a procurar</p><p>A madrugada do novo dia,</p><p>Do novo dia sem acabar;</p></html>", "Exemplo"), new PostItem("1", "Título 2", "Conteudo", "Exemplo")]
+                    posts: items,
+                    loaded: true
                 });
             };
 
             _this._renderItem = function (_ref) {
                 var item = _ref.item;
-                return _react3.default.createElement(_Post2.default, {
+                return item.category == _AppConsts.category.poesias ? _react3.default.createElement(_Post2.default, {
                     title: item.title,
                     content: item.content,
-                    category: item.category,
+                    tag: item.tag,
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 83
+                        lineNumber: 84
                     }
-                });
+                }) : _react3.default.createElement(
+                    _PostFrase2.default,
+                    {
+                        title: item.title,
+                        content: item.content,
+                        tag: item.tag,
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 85
+                        }
+                    },
+                    " "
+                );
             };
 
             _this.state = {
-                category: "POESIAS",
-                posts: [new PostItem("0", "oi", "ola")]
+                category: "",
+                loaded: false,
+                posts: []
             };
             return _this;
         }
@@ -61997,7 +62097,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                         style: _styles2.default.container,
                         __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 87
+                            lineNumber: 90
                         }
                     },
                     _react3.default.createElement(_reactNative.FlatList, {
@@ -62008,7 +62108,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                         renderItem: this._renderItem,
                         __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 88
+                            lineNumber: 91
                         }
                     })
                 );
@@ -62017,7 +62117,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
         return PostViewer;
     }(_react2.Component));
-},504,[118,179,12,505,507,508],"components\\PostViewer\\index.js");
+},504,[118,179,12,505,567,507,566,508],"components\\PostViewer\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -62043,14 +62143,14 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     var Post = function Post(_ref) {
         var title = _ref.title,
             content = _ref.content,
-            category = _ref.category;
+            tag = _ref.tag;
         return _react2.default.createElement(
             _reactNative.View,
             {
                 style: _styles2.default.cardContainer,
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 10
+                    lineNumber: 8
                 }
             },
             _react2.default.createElement(
@@ -62059,7 +62159,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: _styles2.default.titleContainer,
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 11
+                        lineNumber: 9
                     }
                 },
                 _react2.default.createElement(
@@ -62068,7 +62168,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                         style: _styles2.default.title,
                         __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 12
+                            lineNumber: 10
                         }
                     },
                     title
@@ -62080,13 +62180,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: _styles2.default.separador,
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 17
+                        lineNumber: 15
                     }
                 },
                 _react2.default.createElement(_reactNative.View, {
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 18
+                        lineNumber: 16
                     }
                 })
             ),
@@ -62096,10 +62196,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: _styles2.default.postContainer,
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 20
+                        lineNumber: 18
                     }
                 },
-                getJSXFromPoesias(content).map(function (item, index) {
+                getPoesias(content).map(function (item, index) {
                     if (index < 5) return _react2.default.createElement(
                         _reactNative.Text,
                         {
@@ -62107,7 +62207,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                             key: index,
                             __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 24
+                                lineNumber: 22
                             }
                         },
                         item
@@ -62120,7 +62220,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: _styles2.default.tagsContainer,
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 28
+                        lineNumber: 26
                     }
                 },
                 _react2.default.createElement(_Ionicons2.default, {
@@ -62128,7 +62228,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: _styles2.default.icon,
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 29
+                        lineNumber: 27
                     }
                 }),
                 _react2.default.createElement(
@@ -62137,16 +62237,16 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                         style: _styles2.default.tagText,
                         __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 30
+                            lineNumber: 28
                         }
                     },
-                    category
+                    tag
                 )
             )
         );
     };
 
-    getJSXFromPoesias = function getJSXFromPoesias(content) {
+    getPoesias = function getPoesias(content) {
         var versos = content.split("<p>");
         versos = versos.join("$");
         versos = versos.split("<br />");
@@ -62170,34 +62270,18 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         value: true
     });
 
+    var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
     var _reactNative = _require(_dependencyMap[0], "react-native");
 
     var _styles = _require(_dependencyMap[1], "../../styles");
 
-    var styles = _reactNative.StyleSheet.create({
-        cardContainer: {
-            shadowOffset: {
-                width: 1,
-                height: 1
-            },
-            shadowColor: _styles.colors.primary,
-            marginVertical: 5,
-            marginHorizontal: 5,
-            height: 200,
-            backgroundColor: _styles.colors.secondary,
-            borderWidth: 1,
-            borderColor: 'rgba(216, 49, 91, 0.1)'
-        },
+    var styles = _reactNative.StyleSheet.create(_extends({}, _styles.general, {
         titleContainer: {
             flexDirection: 'row',
             justifyContent: 'center',
             padding: 10,
-            alignItems: 'center',
-            shadowOffset: {
-                width: 0,
-                height: 1
-            },
-            shadowColor: _styles.colors.primary
+            alignItems: 'center'
         },
         title: {
             fontFamily: _styles.fonts.family,
@@ -62205,35 +62289,15 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             color: _styles.colors.third,
             fontWeight: 'bold'
         },
-        postContainer: {
-            flex: 1,
-            margin: _styles.metrics.padding
-        },
         postText: {
             textAlign: 'center',
             fontFamily: _styles.fonts.family
         },
-        tagsContainer: {
-            flexDirection: 'row',
-            padding: _styles.metrics.padding,
-            paddingBottom: 10,
-            marginTop: 5,
-            alignItems: 'center'
-        },
         separador: {
             height: 2,
             backgroundColor: _styles.colors.back
-        },
-        icon: {
-            fontSize: 15,
-            color: _styles.colors.third
-        },
-        tagText: {
-            color: _styles.colors.third,
-            fontFamily: _styles.fonts.family,
-            marginHorizontal: 5
         }
-    });
+    }));
 
     exports.default = styles;
 },506,[12,496],"components\\Post\\styles.js");
@@ -67605,6 +67669,196 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
   module.exports = nativeKeysIn;
 },565,[],"node_modules\\lodash\\_nativeKeysIn.js");
+__d(function (global, _require, module, exports, _dependencyMap) {
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    var category = {
+        poesias: "POESIAS",
+        frases: "FRASES"
+    };
+    exports.category = category;
+},566,[],"components\\AppConsts.js");
+__d(function (global, _require, module, exports, _dependencyMap) {
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    var _jsxFileName = "c:\\Users\\Marlo\\Desktop\\React\\components\\PostFrase\\index.js";
+
+    var _react = _require(_dependencyMap[0], "react");
+
+    var _react2 = _interopRequireDefault(_react);
+
+    var _reactNative = _require(_dependencyMap[1], "react-native");
+
+    var _styles = _require(_dependencyMap[2], "./styles");
+
+    var _styles2 = _interopRequireDefault(_styles);
+
+    var _Ionicons = _require(_dependencyMap[3], "react-native-vector-icons/Ionicons");
+
+    var _Ionicons2 = _interopRequireDefault(_Ionicons);
+
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+    var PostFrase = function PostFrase(_ref) {
+        var title = _ref.title,
+            content = _ref.content,
+            tag = _ref.tag;
+        return _react2.default.createElement(
+            _reactNative.View,
+            {
+                style: _styles2.default.cardContainer,
+                __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 7
+                }
+            },
+            _react2.default.createElement(
+                _reactNative.View,
+                {
+                    style: _styles2.default.titleContainer,
+                    __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 8
+                    }
+                },
+                _react2.default.createElement(
+                    _reactNative.Text,
+                    {
+                        style: _styles2.default.title,
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 9
+                        }
+                    },
+                    title
+                )
+            ),
+            _react2.default.createElement(
+                _reactNative.View,
+                {
+                    __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 14
+                    }
+                },
+                getFrases(content)
+            ),
+            _react2.default.createElement(
+                _reactNative.View,
+                {
+                    style: _styles2.default.tagsContainer,
+                    __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 19
+                    }
+                },
+                _react2.default.createElement(_Ionicons2.default, {
+                    name: "ios-pricetag",
+                    style: _styles2.default.icon,
+                    __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 20
+                    }
+                }),
+                _react2.default.createElement(
+                    _reactNative.Text,
+                    {
+                        style: _styles2.default.tagText,
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 21
+                        }
+                    },
+                    tag
+                )
+            )
+        );
+    };
+
+    getFrases = function getFrases(content) {
+        content = "<html>" + content + "</html>";
+        window.DOMParser = _require(_dependencyMap[4], 'xmldom').DOMParser;
+        xmlDoc = new DOMParser().parseFromString(content, "text/xml");
+        var frase = xmlDoc.getElementsByTagName("blockquote")[0].textContent;
+        var autor = xmlDoc.getElementsByTagName("p")[1].textContent;
+        return _react2.default.createElement(
+            _reactNative.View,
+            {
+                style: _styles2.default.postContainer,
+                __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 35
+                }
+            },
+            _react2.default.createElement(
+                _reactNative.Text,
+                {
+                    style: _styles2.default.frase,
+                    __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 36
+                    }
+                },
+                frase
+            ),
+            _react2.default.createElement(
+                _reactNative.Text,
+                {
+                    style: _styles2.default.autor,
+                    __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 37
+                    }
+                },
+                autor
+            )
+        );
+    };
+
+    exports.default = PostFrase;
+},567,[118,12,568,512,508],"components\\PostFrase\\index.js");
+__d(function (global, _require, module, exports, _dependencyMap) {
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+    var _reactNative = _require(_dependencyMap[0], "react-native");
+
+    var _styles = _require(_dependencyMap[1], "../../styles");
+
+    var styles = _reactNative.StyleSheet.create(_extends({}, _styles.general, {
+        titleContainer: {
+            padding: 10,
+            alignItems: 'center'
+        },
+        title: {
+            textAlign: 'left',
+            fontFamily: _styles.fonts.family,
+            fontSize: _styles.fonts.regular,
+            color: _styles.colors.third,
+            fontWeight: 'bold'
+        },
+        frase: {
+            textAlign: 'justify',
+            fontFamily: _styles.fonts.family,
+            fontSize: _styles.fonts.title
+        },
+        autor: {
+            textAlign: 'right',
+            fontFamily: _styles.fonts.family,
+            fontSize: _styles.fonts.regular,
+            fontStyle: 'italic',
+            marginTop: 10,
+            marginBottom: 0
+        }
+    }));
+
+    exports.default = styles;
+},568,[12,496],"components\\PostFrase\\styles.js");
 require(44);
 require(11);
 //# sourceMappingURL=index.map

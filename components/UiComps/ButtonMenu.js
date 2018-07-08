@@ -1,9 +1,13 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { fonts, colors } from '../../styles'
+import { fonts, colors } from '../../styles';
+import { category } from '../AppConsts';
 
-const ButtonMenu = ({title}) => (
-    <TouchableOpacity>
+
+
+const ButtonMenu = ({ title, action, cat }) => (
+    <TouchableOpacity
+        onPress={() => { action(cat) }}>
         <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
 );
