@@ -4,9 +4,9 @@ import metrics from './metrics';
 
 const styles = {
 
-    container:
+    rootContainer:
     {
-        flex: 1,
+        padding: metrics.padding,
     }
 
 };

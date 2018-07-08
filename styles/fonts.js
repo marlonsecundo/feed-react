@@ -1,3 +1,6 @@
 export default {
-    regular: 14,
+    logo: 25,
+    title: 17,
+    regular: 13,
+    family: 'Open Sans'
 }

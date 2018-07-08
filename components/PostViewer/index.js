@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { StyleSheet, View, Text, ScrollView, FlatList } from 'react-native';
 
-import Post  from '../Post';
+import Post from '../Post';
 import styles from './styles'
 
 class PostItem {
@@ -10,11 +10,11 @@ class PostItem {
     title = "";
     content = "";
 
-    constructor(id, title, content) {
+    constructor(id, title, content, category) {
         this.id = id;
         this.title = title;
         this.content = content;
-
+        this.category = category;
     }
 }
 
@@ -25,14 +25,13 @@ export class PostViewer extends Component {
         super(props);
         this.state =
             {
-                category: "poesias",
+                category: "POESIAS",
                 posts: [new PostItem("0", "oi", "ola")]
             };
     }
 
     componentDidMount = () => {
-        // this._getDOMFeed();
-        this.getDataList();
+        this._getDOMFeed();
     }
 
     _getDOMFeed = () => {
@@ -55,30 +54,40 @@ export class PostViewer extends Component {
     _extractPostRSS = (xmlDoc) => {
         let items = [];
         let list = xmlDoc.getElementsByTagName("item");
-
         for (let index = 0; index < list.length; index++) {
-            let title = list[index].getElementsByTagName("title")[0].textContent;
-            let description = "<html><body " + list[index].getElementsByTagName("content:encoded")[0].textContent + "</body></html>";
-            items.push(new PostItem(index.toString(), title, description));
+            let title = list[index].getElementsByTagName("title")[0].textContent.toUpperCase();
+            let description = list[index].getElementsByTagName("content:encoded")[0].textContent;
+            let category = list[index].getElementsByTagName("category");
+
+            for (let i = 0; i < category.length; i++) {
+
+                cat = category[i].textContent;
+
+                if (cat.toUpperCase() == this.state.category)
+                    items.push(new PostItem(index.toString(), title, description, cat));                
+            }
+
         }
 
-        this.setState({ posts: items }); 
+
+
+        this.setState({ posts: items });
     }
 
 
     getDataList = () => {
 
-        this.setState({ posts: [new PostItem("0", "ANTEMANHÃ", "<html><p>O monstrengo que está no fim do mar</p><p>Veio das trevas a procurar</p><p>A madrugada do novo dia,</p><p>Do novo dia sem acabar;</p></html>"), new PostItem("1", "Título 2", "Conteudo")] });  
+        this.setState({ posts: [new PostItem("0", "ANTEMANHÃ", "<html><p>O monstrengo que está no fim do mar</p><p>Veio das trevas a procurar</p><p>A madrugada do novo dia,</p><p>Do novo dia sem acabar;</p></html>", "Exemplo"), new PostItem("1", "Título 2", "Conteudo", "Exemplo")] });
     }
 
-    _renderItem = ({ item }) => (<Post title={item.title} content={item.content}></Post>);
+    _renderItem = ({ item }) => (<Post title={item.title} content={item.content} category={item.category}></Post>);
 
     render() {
         return (
-            <View style={styles.container}> 
+            <View style={styles.container}>
                 <FlatList /*contentContainerStyle={}*/ keyExtractor={data => data.id} data={this.state.posts} renderItem={this._renderItem} />
             </View>
-        ); 
+        );
     }
 }
 

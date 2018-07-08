@@ -1,15 +1,22 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Button } from '../UiComps';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 import styles from './styles';
 
 const Header = () => (
-    <View>
-        <Text>Ser Humano</Text>
-        <Button>indfo</Button>
+    <View style={styles.container}>
+        <View style={styles.contTitle}>        
+            <Text style={styles.title}>Ser Humano</Text>
+        </View>
+
+        <View>
+            <TouchableOpacity>
+                <Text style={styles.about}>i</Text>
+            </TouchableOpacity> 
+        </View>
     </View>
 );
 

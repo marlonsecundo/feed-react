@@ -1,33 +1,29 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
-  TouchableHighlight,
-  Text,
-  FlatList,
   View
 } from 'react-native';
 
-import  Header  from './components/Header';
+import Header from './components/Header';
 import { Menu } from './components/Menu';
 import { PostViewer } from './components/PostViewer';
 
-import { general } from './styles';
+import { general, colors } from './styles';
 
 type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
-      <View style={styles.container}> 
+      <View style={{flex:1}}>
         <View>
-          <Header></Header> 
-          <Menu></Menu> 
-        </View>
-        <View style={styles.container}>
+          <Header></Header>
+          <Menu></Menu>
+        </View> 
+        <View style={[styles.rootContainer, styles.content]}>
           <PostViewer></PostViewer>
         </View>
-        
-      </View> 
+
+      </View>
     );
   }
 }
@@ -35,5 +31,10 @@ export default class App extends Component<Props> {
 
 const styles = StyleSheet.create({
   ...general,
+  content:
+  {
+    backgroundColor: colors.back,
+    flex: 1,
+  },
 
 });

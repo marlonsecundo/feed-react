@@ -1,5 +1,5 @@
 import { Plataform } from 'react-native';
 
 export default {
-    padding: 15,
+    padding: 17,
 }
