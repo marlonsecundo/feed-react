@@ -1,5 +1,4 @@
 const category = {
-
     poesias : "POESIAS",
     frases : "FRASES",
 }

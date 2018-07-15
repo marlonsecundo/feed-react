@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
-import Post from '../Post';
-import PostFrase from '../PostFrase';
-import styles from './styles';
+import { Post, PostFrase } from '../../components';
+
 import { category } from '../AppConsts';
+import styles from './styles';
 
 class PostItem {
     id = "";
@@ -21,7 +21,7 @@ class PostItem {
 }
 
 
-export class PostViewer extends Component {
+export default class PostViewer extends Component {
 
     constructor(props) {
         super(props);

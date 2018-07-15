@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import ButtonMenu from '../UiComps/ButtonMenu';
-import styles from './styles';
-import { category } from '../AppConsts';
+import { ButtonMenu } from '../UiComps';
 
-export class Menu extends Component {
+import { category } from '../AppConsts';
+import styles from './styles';
+
+export default class Menu extends Component {
 
     constructor(props) {
         super(props);
