@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
 import { Post, PostFrase } from '../../components';
-import { Spinner } from 'react-native-spinkit';
+import Spinner from 'react-native-spinkit';
 import { category } from '../AppConsts';
 import styles from './styles';
 
@@ -88,11 +88,8 @@ export default class PostViewer extends Component {
     render() {
         return (
             <View style={styles.container}>
-
+                <Spinner />
                 <FlatList collapsable={this.state.loaded} keyExtractor={data => data.id} data={this.state.posts} renderItem={this._renderItem} />
-                <View collapsable={this.state.loaded}>
-                    <Spinner size={100}></Spinner>
-                </View>
             </View>
         );
     }
