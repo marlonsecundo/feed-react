@@ -18,6 +18,7 @@ const styles = {
         backgroundColor: colors.secondary,
         borderWidth: 1,
         borderColor: 'rgba(23, 80, 104, 0.2)',
+        borderRadius: 3,
     },
     postContainer:
     {

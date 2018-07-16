@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
-import { Button } from '../UiComps';
 
 import styles from './styles';
 
