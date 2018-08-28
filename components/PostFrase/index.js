@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity, Linking } from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const PostFrase = ({ title, content, tag }) => (
+const PostFrase = ({ title, content, tag, url }) => (
+    <TouchableOpacity onPress={() => { Linking.openURL(url)}}>
+
     <View style={styles.cardContainer}>
         <View style={styles.titleContainer}>
             <Text style={styles.title}>
@@ -23,6 +25,8 @@ const PostFrase = ({ title, content, tag }) => (
             <Text style={styles.tagText}>{tag}</Text>
         </View>
     </View>
+    </TouchableOpacity>
+
 );
 
 getFrases = (content) => {

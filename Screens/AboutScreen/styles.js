@@ -51,9 +51,11 @@ const styles = StyleSheet.create({
     },
     version:
     {
+        color: colors.primary,
         padding: metrics.padding,
         fontStyle: 'italic',
         fontFamily: fonts.family,
+    
 
     },
 

@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
-
-const styles = StyleSheet.create(
+import { metrics } from '../../styles';
+const styles = StyleSheet.create({
+    loading:
     {
-        
-    }
-);
+        padding: metrics.padding
+    },
+});
 
 export default styles;

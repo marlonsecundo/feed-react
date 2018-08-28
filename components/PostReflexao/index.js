@@ -1,10 +1,9 @@
-import React  from 'react';
-import { View, Text, TouchableOpacity, Linking } from 'react-native';
-import styles from './styles';
+import { View, Text, Linking, TouchableOpacity } from 'react-native';
+import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
+import styles from '../Post/styles';
 
-
-const Post = ({ title, content, tag, url }) => (
+const PostReflexao = ({ title, content, tag, url }) => (
     <TouchableOpacity onPress={() => { Linking.openURL(url)}}>
 
     <View style={styles.cardContainer}>
@@ -19,7 +18,7 @@ const Post = ({ title, content, tag, url }) => (
         </View>
         <View style={styles.postContainer}>
             {
-                getPoesias(content).map((item, index) => {
+                getReflexoes(content).map((item, index) => {
                     if (index < 5)
                         return (<Text style={styles.postText} key={index}>{item}</Text>)
                 })
@@ -34,30 +33,16 @@ const Post = ({ title, content, tag, url }) => (
 
 );
 
-getPoesias = (content) => {
+getReflexoes = (content) =>
+{
     let versos = content.split("<p>");
-
-    versos = versos.join("$");
-
-    versos = versos.split("<br />");
-
-    versos = versos.join("$").split("$");
 
     versos = versos.map((item) => {
         item = item.replace("</p>", "");
-        item = item.replace("\n", "");
-        item = item.replace('\n', "")
         return item;
     });
-
-
-    versos = versos.filter((item, index) => {
-        return index !== 0;
-    });
-
     return versos;
 }
 
 
-
-export default Post;
+export default PostReflexao;

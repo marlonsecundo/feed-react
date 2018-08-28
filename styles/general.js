@@ -3,7 +3,7 @@ import fonts from './fonts';
 import metrics from './metrics';
 
 const styles = {
-
+ 
     rootContainer:
     {
         padding: metrics.padding,
